@@ -1,0 +1,84 @@
+/* コンテナ全体 */
+#gamepad-viewer {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  font-family: sans-serif;
+  background: #f0f0f0;
+}
+
+/* 各コントローラのボックス */
+.controller {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 1rem;
+  margin: 0.5rem 0;
+  background: #fafafa;
+  color: black;
+}
+
+/* 見出し */
+.controller h1 {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+.controller h2 {
+  font-size: 1rem;
+  margin: 0.5rem 0;
+}
+.controller h3 {
+  font-size: 0.9rem;
+  margin: 0.25rem 0;
+}
+
+/* ボタン表示エリア */
+.buttons {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 0.5rem;
+}
+
+/* ボタンの1つ1つ */
+.button {
+  display: inline-block;
+  margin: 0.25rem;
+  padding: 0.25rem 0.5rem;
+  border: 1px solid #999;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  color: #3b82f6;
+  text-align: center;
+  min-width: 28px;
+  background: #e5e5e5;
+  transition: background 0.2s, color 0.2s;
+}
+.button.pressed {
+  background: #3b82f6; /* 青系 */
+  color: white;
+  font-weight: bold;
+}
+
+/* ボタンの値バー */
+.button .value-bar {
+  width: 64px;
+  height: 6px;
+  background: #ddd;
+  margin-top: 2px;
+  position: relative;
+}
+.button .value-bar-fill {
+  background: #3b82f6;
+  height: 100%;
+}
+
+/* アナログ軸 */
+.axes {
+  margin-top: 1rem;
+}
+.axes meter {
+  width: 150px;
+}
+.axes span {
+  margin-left: 0.5rem;
+  font-family: monospace;
+}
