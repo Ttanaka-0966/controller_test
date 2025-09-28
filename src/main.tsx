@@ -1,7 +1,7 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
-import App from './gamepad.tsx'
+import App from './gamepads.tsx'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>

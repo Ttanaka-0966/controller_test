@@ -50,7 +50,7 @@
   text-align: center;
   min-width: 28px;
   background: #e5e5e5;
-  transition: background 0.2s, color 0.2s;
+  transition: 0.2s, color 0.2s;
 }
 .button.pressed {
   background: #3b82f6; /* 青系 */

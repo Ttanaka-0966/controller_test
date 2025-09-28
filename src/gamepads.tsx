@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
-import "./gamepad.css";
+import "./gamepads.css";
 
 type GamepadState = {
     id: string;   //コントローラ名
@@ -85,7 +85,8 @@ const GamepadViewer: React.FC = () => {
 
     return (
         <div id="gamepad-viewer">
-            <h1 className="controller">{Object.keys(controllers).length === 0 ? "接続待機中…" : Object.keys(controllers).length+"台接続完了"}</h1>
+            <h1 className="controller">{Object.keys(controllers).length === 0
+             ? "接続待機中 入力すると接続されます" : Object.keys(controllers).length+"台接続完了"}</h1>
             {Object.values(controllers).map((controller) => (
                 <div key={controller.index} className="controller">
                     <h2>接続Gamepad情報:</h2>
