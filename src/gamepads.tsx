@@ -9,7 +9,7 @@ type GamepadState = {
 };
 
 const isGamepadButton = (b: GamepadButton | number): b is GamepadButton =>
-    typeof b === "object" && b !== null && "pressed" in (b as any);
+    typeof b === "object" && b !== null && "pressed" in (b as GamepadButton);
 
 const GamepadViewer: React.FC = () => {
     const [controllers, setControllers] = useState<Record<number, GamepadState>>({});
@@ -34,7 +34,7 @@ const GamepadViewer: React.FC = () => {
     const disconnectHandler = (e: GamepadEvent) => {
         setControllers((prev) => {
             // 非破壊的に指定キーを除去して返す方法
-            const { [e.gamepad.index]: _removed, ...rest } = prev;
+            const { [e.gamepad.index]: _, ...rest } = prev; // eslint-disable-line @typescript-eslint/no-unused-vars
             return rest;
         });
     };
@@ -85,8 +85,8 @@ const GamepadViewer: React.FC = () => {
 
     return (
         <div id="gamepad-viewer">
-            <h1 className="controller">{Object.keys(controllers).length === 0
-             ? "接続待機中 入力すると接続されます" : Object.keys(controllers).length+"台接続完了"}</h1>
+            <h1 className="controller">{Object.values(controllers).length === 0
+             ? "接続待機中 入力すると接続されます" : Object.values(controllers).length+"台接続完了"}</h1>
             {Object.values(controllers).map((controller) => (
                 <div key={controller.index} className="controller">
                     <h2>接続Gamepad情報:</h2>
