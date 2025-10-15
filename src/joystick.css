@@ -1,0 +1,16 @@
+.joystick-base {
+  position: relative;
+  background-color: #ddd;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px auto;
+}
+
+.joystick-knob {
+  position: absolute;
+  border-radius: 50%;
+  text-align: center;
+  align-content: center;
+}

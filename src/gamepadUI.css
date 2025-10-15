@@ -1,0 +1,40 @@
+/* style.css */
+.button {
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    display: flex;
+    background-color: lightgray;
+    color: gray;
+    justify-content: center;
+    align-items: center;
+    font-size: 25px;
+}
+
+.pressed {
+    background-color: green;
+    color: white;
+}
+
+.fourButtons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.fourButtons>div {
+    display: flex;
+    flex-direction: row;
+}
+
+.sideButtons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.smallButton{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
