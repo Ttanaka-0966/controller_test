@@ -8,7 +8,6 @@
     color: gray;
     justify-content: center;
     align-items: center;
-    font-size: 25px;
 }
 
 .pressed {
@@ -37,4 +36,39 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+.GamepadBackground{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    margin: 50px;
+    height: 400px;
+    width: 800px;
+    border-radius: 40% 40% 30% 30% / 30% 30% 10% 10% ;
+    background: gray;
+    left: 50px;
+}
+.GamepadBackground::before{
+    content: "";
+    position: absolute;
+    top: 15%;
+    left: -10%;
+    width: 25%;
+    height: 120%;
+    border-radius: 50%;
+    background: gray;
+    transform: rotate(10deg);
+}
+.GamepadBackground::after{
+    content: "";
+    position: absolute;
+    top: 15%;
+    left: 85%;
+    width: 25%;
+    height: 120%;
+    border-radius: 50%;
+    background: gray;
+    transform: rotate(-10deg);
 }

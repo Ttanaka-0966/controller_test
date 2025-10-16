@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./gamepadUI.css";
 import Joystick from "./joystick";
 
@@ -8,8 +8,12 @@ type GamepadState = {
     buttons: readonly GamepadButton[];
     axes: readonly number[];
 };
+type ButtonProps = {
+    btn: GamepadButton[];
+    name: string[];
+}
 
-const fourButtons = (btn: GamepadButton[], name: string[]) => {
+const FourButtons: React.FC<ButtonProps> = ({ btn, name }) => {
     return (
         <div className="fourButtons">
             <div className={`button ${btn[3].pressed ? "pressed" : ""}`}>
@@ -30,7 +34,7 @@ const fourButtons = (btn: GamepadButton[], name: string[]) => {
         </div>
     )
 };
-const sideButtons = (btn: GamepadButton[], name: string[]) => {
+const SideButtons: React.FC<ButtonProps> = ({ btn, name }) => {
     return (
         <div className="sideButtons">
             <div className={`button ${btn[1].pressed ? "pressed" : ""}`}
@@ -44,12 +48,12 @@ const sideButtons = (btn: GamepadButton[], name: string[]) => {
         </div>
     )
 };
-const smallButton = (btn: GamepadButton, name: string) => {
+const SmallButton: React.FC<ButtonProps> = ({ btn, name }) => {
     return (
         <div className="smallButton">
-            <div className={`button ${btn.pressed ? "pressed" : ""}`}
-                style={{ width: "40px", height: "40px"}}>
-                {name}
+            <div className={`button ${btn[0].pressed ? "pressed" : ""}`}
+                style={{ width: "40px", height: "40px" }}>
+                {name[0]}
             </div>
         </div>
     )
@@ -126,7 +130,7 @@ const Main = () => {
             {controller ? (
                 <div style={{ display: "flex" }}>
                     <div>
-                        <h2>{controller.id}</h2>
+                        <h2>{"id:" + controller.id}</h2>
                         <div>
                             <h3>ボタン</h3>
                             {controller.buttons.map((btn, i) => (
@@ -144,20 +148,30 @@ const Main = () => {
                                 </div>
                             ))}
                         </div>
+                        <div className="GamepadBackground">
+                            <div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
+                                <Joystick x={controller.axes[2]} y={controller.axes[3] * -1}
+                                    pressed={controller.buttons[11].pressed} name="R" />
+                                <FourButtons btn={[controller.buttons[15], controller.buttons[14],
+                                controller.buttons[13], controller.buttons[12]]} name={["→", "←", "↓", "↑"]} />
+                                <SideButtons btn={[controller.buttons[5], controller.buttons[7]]} name={["R1", "R2"]} />
+                            </div>
+                        </div>
                     </div>
 
                     <div>
-                        <div>{fourButtons([controller.buttons[1], controller.buttons[2],
-                        controller.buttons[0], controller.buttons[3]], ["→", "←", "↓", "↑"])}</div>
-                        <div>{sideButtons([controller.buttons[4], controller.buttons[6]], ["L1", "L2"])}</div>
-                        <div>{smallButton(controller.buttons[9], "+")}</div>
+                        <FourButtons btn={[controller.buttons[1], controller.buttons[2],
+                        controller.buttons[0], controller.buttons[3]]} name={["→", "←", "↓", "↑"]} />
+                        <SideButtons btn={[controller.buttons[4], controller.buttons[6]]} name={["L1", "L2"]} />
+                        <SmallButton btn={[controller.buttons[9]]} name={["+"]} />
 
                         <Joystick x={controller.axes[0]} y={controller.axes[1] * -1}
-                            pressed={controller.buttons[11].pressed} name="L" />
+                            pressed={controller.buttons[10].pressed} name="L" />
+
                     </div>
                 </div>
             ) : (
-                <div>コントローラ未接続</div>
+                <div className="GamepadBackground">コントローラ未接続</div>
             )}
         </div>
     );

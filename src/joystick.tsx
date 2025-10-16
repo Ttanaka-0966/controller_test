@@ -35,6 +35,7 @@ const Joystick: React.FC<JoystickProps> = ({ x, y, pressed,name}) => {
         style={{
           width: knobSize,
           height: knobSize,
+          fontSize: knobSize/3,
           transform: `translate(${knobX}px, ${knobY}px)`,
             backgroundColor: pressed ? "#d32f2f" : "#4caf50",
         }}
