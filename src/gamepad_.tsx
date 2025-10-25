@@ -13,6 +13,31 @@ type ButtonProps = {
     name: string[];
 }
 
+const DebugUI: React.FC<GamepadState> = ({ id, buttons, axes }) => {
+    return (
+        <div>
+            <h2>{"id:" + id}</h2>
+            <div>
+                <h3>ボタン</h3>
+                {buttons.map((btn, i) => (
+                    <div key={i}>
+                        ボタン {i}: {btn.pressed ? "押下中" : "離されている"} (値:{" "}
+                        {btn.value})
+                    </div>
+                ))}
+            </div>
+            <div>
+                <h3>スティック</h3>
+                {axes.map((axis, i) => (
+                    <div key={i}>
+                        軸 {i}: {axis.toFixed(2)}
+                    </div>
+                ))}
+            </div>
+        </div>
+    );
+};
+
 const FourButtons: React.FC<ButtonProps> = ({ btn, name }) => {
     return (
         <div className="fourButtons">
@@ -59,7 +84,24 @@ const SmallButton: React.FC<ButtonProps> = ({ btn, name }) => {
     )
 };
 
+const GamepadUI: React.FC<GamepadState> = ({ buttons, axes }) => {
+    return (
+        <div className="GamepadBackground">
+            <div style={{ display: "flex", position: "absolute" }}>
+                <Joystick x={axes[2]} y={axes[3] * -1}
+                    pressed={buttons[11].pressed} name="R" />
+                <FourButtons btn={[buttons[0], buttons[3],
+                buttons[1], buttons[2]]} name={["→", "←", "↓", "↑"]} />
+                <SmallButton btn={[buttons[9]]} name={["+"]} />
+                <SideButtons btn={[buttons[5], buttons[7]]} name={["R1", "R2"]} />
+            </div>
+        </div>
+    )
+};
+
 const Main = () => {
+
+    const [page, setPage] = useState<string>("gamepad");
 
     //Gamepad一台シンプルに使いたければここから...
     const [controller, setController] = useState<GamepadState | null>(null);
@@ -125,54 +167,26 @@ const Main = () => {
     //ここからはUI表示例
 
     return (
-        <div>
-            <h1>コントローラ接続</h1>
+        <div style={{}}>
             {controller ? (
-                <div style={{ display: "flex" }}>
-                    <div>
-                        <h2>{"id:" + controller.id}</h2>
+                <div style={{ display: "flex", justifyContent: "center" }}>
+                    {page === "gamepad" ? (
                         <div>
-                            <h3>ボタン</h3>
-                            {controller.buttons.map((btn, i) => (
-                                <div key={i}>
-                                    ボタン {i}: {btn.pressed ? "押下中" : "離されている"} (値:{" "}
-                                    {btn.value})
-                                </div>
-                            ))}
+                            <GamepadUI {...controller} />
+                            <button onClick={() => setPage("debug")}>デバッグ表示へ</button>
                         </div>
+                    ) : null}
+                    {page === "debug" ? (
                         <div>
-                            <h3>スティック</h3>
-                            {controller.axes.map((axis, i) => (
-                                <div key={i}>
-                                    軸 {i}: {axis.toFixed(2)}
-                                </div>
-                            ))}
+                            <DebugUI {...controller} />
+                            <button onClick={() => setPage("gamepad")}>コントローラ表示へ</button>
                         </div>
-                        <div className="GamepadBackground">
-                            <div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
-                                <Joystick x={controller.axes[2]} y={controller.axes[3] * -1}
-                                    pressed={controller.buttons[11].pressed} name="R" />
-                                <FourButtons btn={[controller.buttons[15], controller.buttons[14],
-                                controller.buttons[13], controller.buttons[12]]} name={["→", "←", "↓", "↑"]} />
-                                <SideButtons btn={[controller.buttons[5], controller.buttons[7]]} name={["R1", "R2"]} />
-                            </div>
-                        </div>
-                    </div>
-
-                    <div>
-                        <FourButtons btn={[controller.buttons[1], controller.buttons[2],
-                        controller.buttons[0], controller.buttons[3]]} name={["→", "←", "↓", "↑"]} />
-                        <SideButtons btn={[controller.buttons[4], controller.buttons[6]]} name={["L1", "L2"]} />
-                        <SmallButton btn={[controller.buttons[9]]} name={["+"]} />
-
-                        <Joystick x={controller.axes[0]} y={controller.axes[1] * -1}
-                            pressed={controller.buttons[10].pressed} name="L" />
-
-                    </div>
+                    ) : null}
                 </div>
             ) : (
-                <div className="GamepadBackground">コントローラ未接続</div>
+                <div className="GamepadBackground" style={{ fontSize: "80px" }}>未接続</div>
             )}
+
         </div>
     );
 };
