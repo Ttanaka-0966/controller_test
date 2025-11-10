@@ -1,44 +1,36 @@
 /* style.css */
+html{
+  touch-action: pan-y;
+}
+
 .button {
-    border-radius: 50%;
-    width: 80px;
-    height: 80px;
+    border: 2px solid black;
+    position: absolute;
     display: flex;
-    background-color: lightgray;
-    color: gray;
     justify-content: center;
     align-items: center;
-    position: relative;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background-color: lightgray;
+    color: gray;
+    font-size: 2.5vw;
+    width: 8%;
 }
 
 .pressed {
     background-color: green;
 }
 
-.fourButtons {
+.setCenter {
+    position: absolute;
+    width: 100%;
+    height: 100%;
     display: flex;
-    flex-direction: column;
+    justify-content: center;
     align-items: center;
 }
 
-.fourButtons>div {
-    display: flex;
-    flex-direction: row;
-}
-
-.sideButtons {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.smallButton{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.GamepadBackground{
+.GamepadBackground {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -46,39 +38,44 @@
     aspect-ratio: 16/9;
     top: 50%;
     left: 50%;
-    transform: translate(-50%,-50%);
-    border-radius: 40% 40% 30% 30% / 30% 30% 10% 10% ;
+    transform: translate(-50%, -50%);
+    border-radius: 20% 20% 30% 30% / 30% 30% 10% 10%;
     background: gray;
 }
-@media (min-aspect-ratio:16/9){
-    .GamepadBackground{
-        height:65%;
-    }        
+
+@media (min-aspect-ratio:16/9) {
+    .GamepadBackground {
+        height: 65%;
+    }
 }
+
 @media (max-aspect-ratio:16/9) {
-    .GamepadBackground{
+    .GamepadBackground {
         width: 65%;
     }
 }
-.GamepadBackground::before{
+
+.GamepadBackground::before {
     content: "";
     position: absolute;
     top: 15%;
     left: -10%;
     width: 25%;
     height: 120%;
-    border-radius: 50%;
+    border-radius: 45%;
     background: gray;
     transform: rotate(10deg);
+    z-index: -1;
 }
-.GamepadBackground::after{
+
+.GamepadBackground::after {
     content: "";
     position: absolute;
     top: 15%;
     left: 85%;
     width: 25%;
     height: 120%;
-    border-radius: 50%;
+    border-radius: 45%;
     background: gray;
     transform: rotate(-10deg);
     z-index: -1;

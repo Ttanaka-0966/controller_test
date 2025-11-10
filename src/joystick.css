@@ -1,11 +1,12 @@
 .joystick-base {
-  position: relative;
+  position: absolute;
   background-color: #ddd;
   border-radius: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 20px auto;
+  aspect-ratio: 1/1;
+  border: 2px solid black;
 }
 
 .joystick-knob {
@@ -13,4 +14,6 @@
   border-radius: 50%;
   text-align: center;
   align-content: center;
+  font-size: 2.5vw;
+  border: 2px solid black;
 }
