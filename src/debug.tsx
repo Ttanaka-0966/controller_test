@@ -1,5 +1,6 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 import GamepadUI from "./gamepadUI";
+import useController from "./gamepadAPI";
 
 type GamepadState = {
     id: string;
@@ -37,87 +38,26 @@ const Main = () => {
 
     const [page, setPage] = useState<string>("gamepad");
 
-    //Gamepad一台シンプルに使いたければここから...
-    const [controller, setController] = useState<GamepadState | null>(null);
-    const requestRef = useRef<number | null>(null);
-
-    useEffect(() => {
-        const handleConnect = (e: GamepadEvent) => {
-            setController({
-                id: e.gamepad.id,
-                index: e.gamepad.index,
-                buttons: [...e.gamepad.buttons],
-                axes: [...e.gamepad.axes],
-            });
-        };
-
-        const handleDisconnect = () => {
-            setController(null);
-        };
-
-        window.addEventListener("gamepadconnected", handleConnect);
-        window.addEventListener("gamepaddisconnected", handleDisconnect);
-
-        return () => {
-            window.removeEventListener("gamepadconnected", handleConnect);
-            window.removeEventListener("gamepaddisconnected", handleDisconnect);
-        };
-    }, []);
-
-    useEffect(() => {
-        const update = () => {
-            const gamepads = navigator.getGamepads();
-
-            const gp = gamepads[0];
-
-            if (gp) {
-                setController(prev => {
-                    if (
-                        !prev ||
-                        prev.id !== gp.id ||
-                        gp.buttons.some((b, i) => b.pressed !== prev.buttons[i]?.pressed) ||
-                        gp.axes.some((a, i) => a !== prev.axes[i])
-                    ) {
-                        return {
-                            id: gp.id,
-                            index: gp.index,
-                            buttons: [...gp.buttons],
-                            axes: [...gp.axes],
-                        };
-                    }
-                    return prev; // 状態が変わっていないなら再レンダーしない
-                });
-            }
-            requestRef.current = requestAnimationFrame(update);
-        };
-        requestRef.current = requestAnimationFrame(update);
-        return () => {
-            if (requestRef.current) cancelAnimationFrame(requestRef.current);
-        };
-    }, []);
-    //ここまでコピペする！！
-    //複数台接続は非対応、切断してから接続する
-
-    //ここからはUI表示例
+    const Controller = useController();
 
     return (
         <div style={{}}>
-            {controller ? (
+            {Controller ? (
                 <div style={{ display: "flex", justifyContent: "center" }}>
                     {page === "gamepad" ? (
                         <div>
-                            <button onClick={() => setPage("debug")} 
-                            style={{position:"absolute",top:"0",margin:"10px"}}>
+                            <button onClick={() => setPage("debug")}
+                                style={{ position: "absolute", top: "0", margin: "10px", fontSize: "30px" }}>
                                 デバッグ表示へ</button>
-                            <GamepadUI {...controller} />
+                            <GamepadUI {...Controller} />
                         </div>
                     ) : null}
                     {page === "debug" ? (
                         <div>
-                            <button onClick={() => setPage("gamepad")} 
-                            style={{position:"relative",margin:"10px"}}>
+                            <button onClick={() => setPage("gamepad")}
+                                style={{ position: "relative", margin: "10px" }}>
                                 コントローラ表示へ</button>
-                            <DebugUI {...controller} />
+                            <DebugUI {...Controller} />
                         </div>
                     ) : null}
                 </div>
