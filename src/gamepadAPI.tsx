@@ -8,7 +8,6 @@ type GamepadState = {
 };
 
 const useController = () => {
-    //Gamepad一台シンプルに使いたければここから...
     const [controller, setController] = useState<GamepadState | null>(null);
     const requestRef = useRef<number | null>(null);
 
