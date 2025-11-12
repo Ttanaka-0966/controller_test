@@ -65,7 +65,6 @@ const useController = () => {
             if (requestRef.current) cancelAnimationFrame(requestRef.current);
         };
     }, []);
-    //ここまでコピペする！！
     return controller;
 }
 
