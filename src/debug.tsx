@@ -30,7 +30,7 @@ const DebugUI: React.FC<GamepadState> = ({ id, buttons, axes }) => {
             <h2>{"id: " + id}</h2>
             <div style={{ display: "flex", flexDirection: "row" }}>
                 <div>
-                    <div>
+                    <div style={{width:"500px"}}>
                         <h3>ボタン</h3>
                         {buttons.map((btn, i) => (
                             <div key={i}>
@@ -48,7 +48,7 @@ const DebugUI: React.FC<GamepadState> = ({ id, buttons, axes }) => {
                         ))}
                     </div>
                 </div>
-                <div style={{ marginLeft: "50px" }}>
+                <div>
                     <h2>ボタンログ(最新順)</h2>
                     {log.map((btnIndex, i) => (
                         <div key={i} style={{border: "2px solid black",
@@ -76,7 +76,7 @@ const Main = () => {
                     {page === "gamepad" ? (
                         <div>
                             <button onClick={() => setPage("debug")}
-                                style={{ position: "absolute", top: "0", margin: "10px", fontSize: "30px" }}>
+                                style={{ position: "absolute", top: "0",fontSize: "2.5vw", zIndex:"+1"}}>
                                 デバッグ表示へ</button>
                             <GamepadUI {...Controller} />
                         </div>
