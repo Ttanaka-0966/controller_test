@@ -3,6 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "homepage": "https://<ttanaka-0966.github.io/controller_test/",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
