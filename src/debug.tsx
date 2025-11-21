@@ -26,7 +26,7 @@ const DebugUI: React.FC<GamepadState> = ({ id, buttons, axes }) => {
     }, [buttons]);
 
     return (
-        <div>
+        <>
             <h2>{"id: " + id}</h2>
             <div style={{ display: "flex", flexDirection: "row" }}>
                 <div>
@@ -59,7 +59,7 @@ const DebugUI: React.FC<GamepadState> = ({ id, buttons, axes }) => {
                     ))}
                 </div>
             </div>
-        </div>
+        </>
     );
 };
 
@@ -70,31 +70,31 @@ const Main = () => {
     const Controller = useController();
 
     return (
-        <div>
+        <>
             {Controller ? (
-                <div style={{ display: "flex", justifyContent: "center" }}>
+                <div style={{ display: "table-row"}}>
                     {page === "gamepad" ? (
-                        <div>
+                        <>
                             <button onClick={() => setPage("debug")}
                                 style={{ position: "absolute", top: "0",fontSize: "2.5vw", zIndex:"+1"}}>
                                 デバッグ表示へ</button>
                             <GamepadUI {...Controller} />
-                        </div>
+                        </>
                     ) : null}
                     {page === "debug" ? (
-                        <div>
+                        <>
                             <button onClick={() => setPage("gamepad")}
                                 style={{ position: "relative", margin: "10px" }}>
                                 コントローラ表示へ</button>
                             <DebugUI {...Controller} />
-                        </div>
+                        </>
                     ) : null}
                 </div>
             ) : (
                 <div className="GamepadBackground" style={{ fontSize: "10vw" }}>未接続</div>
             )}
 
-        </div>
+        </>
     );
 };
 
